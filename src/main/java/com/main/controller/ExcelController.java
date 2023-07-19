@@ -17,6 +17,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.poi.ss.usermodel.CellType.*;
+
 @Controller
 public class ExcelController {
 
@@ -27,7 +29,7 @@ public class ExcelController {
 
     @RequestMapping("/readExcel")
     public String readExcel(@RequestParam("file") MultipartFile file, Model model) {
-        String[] excelHead = {"이름","바람", "온도", "습도", "날씨" , "test"};
+        String[] excelHead = {"이름","바람", "온도", "습도"};
 
         try (InputStream inputStream = file.getInputStream()) {
             Workbook workbook = WorkbookFactory.create(inputStream); // Workbook 객체 생성
@@ -35,9 +37,22 @@ public class ExcelController {
 
             List<Map<String, String>> dataList = new ArrayList<>(); // 각 행 아래 데이터를 저장할 리스트 생성
 
-            // 각 행을 반복하며 데이터 추출
+            /* 헤더 정보 가져오기 */
+            Row headerRow = sheet.getRow(0); // 첫 번째 행의 Row
+            if(headerRow != null){
+                for(Cell cell : headerRow){
+                    System.out.print(cell);
+                    /*.getStringCellValue() + "\t"*/
+                }
+            }
+
+            /* 연구메타의 엑셀형 장비 속성과 액셀 Header 비교 하는 로직 */
+
+            /* 유무 확인 후 데이터 추출 */
+
+            // 헤더아래 각 행을 반복하며 데이터 추출
             for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) { // 첫 번째 행은 열 제목이므로 rowIndex를 1부터 시작
-                Row row = sheet.getRow(rowIndex);
+                   Row row = sheet.getRow(rowIndex);
                 if (row == null) {
                     continue; // 빈 행인 경우 스킵
                 }
@@ -50,37 +65,12 @@ public class ExcelController {
                         continue; // 빈 셀인 경우 스킵
                     }
                     String columnName = excelHead[cellIndex]; // 열 이름 추출
-                    DecimalFormat decimalFormat = new DecimalFormat("#.##"); // 소수점 둘째자리까지만 표시하도록 포맷 설정
-                    String cellValue;
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            cellValue = cell.getStringCellValue();
-                            if(cellValue.trim().isEmpty()){
-                                continue;
-                            }
-                            break;
-                        case NUMERIC:
-                            cellValue = decimalFormat.format(cell.getNumericCellValue()); // 숫자인 경우 포맷 적용
-                            if (columnName.equals("온도") && cell.getCellType() == CellType.NUMERIC && cell.getNumericCellValue() > 30) {
-                                // "온도" 열이고, 셀 타입이 숫자이며, 30을 초과하는 경우
-                                System.out.println("온도 값이 30을 초과합니다.");
-                                // 필요한 로직 구현
-                            }
-                            break;
-                        case BOOLEAN:
-                            cellValue = String.valueOf(cell.getBooleanCellValue());
-                            break;
-                        case FORMULA:
-                            cellValue = cell.getCellFormula();
-                            break;
-                        default:
-                            cellValue = "";
-                    }
+
                     /*String cellValue = cell.toString(); // 셀 값 추출*/
+                    String cellValue = excelCellValidation(columnName, cell);
+
                     rowData.put(columnName, cellValue.trim()); // 맵에 데이터 추가
-
                 }
-
                 if (!rowData.isEmpty()) {
                     dataList.add(rowData); // 리스트에 맵 추가
                 }
@@ -98,5 +88,39 @@ public class ExcelController {
         }
         return "readExcel";
     }
+
+    public String excelCellValidation(String columnName, Cell cell){
+        DecimalFormat decimalFormat = new DecimalFormat("#.##"); // 소수점 둘째자리까지만 표시하도록 포맷 설정
+        String cellValue;
+        switch (cell.getCellType()) {
+            case STRING:
+                cellValue = cell.getStringCellValue();
+                if(cellValue.trim().isEmpty()){
+                    /* 빈셀 */
+                    System.out.println("빈셀입니다.");
+                }
+                break;
+            case NUMERIC:
+                cellValue = decimalFormat.format(cell.getNumericCellValue()); // 숫자인 경우 포맷 적용
+                if (columnName.equals("온도") && cell.getCellType() == NUMERIC && cell.getNumericCellValue() > 30) {
+                    // "온도" 열이고, 셀 타입이 숫자이며, 30을 초과하는 경우
+                    System.out.println("온도 값이 30을 초과합니다.");
+                    // 필요한 로직 구현
+                }
+                break;
+            case BOOLEAN:
+                cellValue = String.valueOf(cell.getBooleanCellValue());
+                break;
+            case FORMULA:
+                cellValue = cell.getCellFormula();
+                break;
+            default:
+                cellValue = "";
+        }
+
+        return cellValue;
+    }
+
 }
+
 
