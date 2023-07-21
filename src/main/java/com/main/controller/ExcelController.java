@@ -1,6 +1,8 @@
 package com.main.controller;
 
 import org.apache.poi.ss.usermodel.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,12 @@ import static org.apache.poi.ss.usermodel.CellType.*;
 @Controller
 public class ExcelController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExcelController.class);
+
+    private static int sheetNum = 0;
+
+    private static String alert = "";
+
     @GetMapping("/index")
     public String main(){
         return "index";
@@ -29,24 +37,30 @@ public class ExcelController {
 
     @RequestMapping("/readExcel")
     public String readExcel(@RequestParam("file") MultipartFile file, Model model) {
-        String[] excelHead = {"이름","바람", "온도", "습도"};
+        /* 고정 헤더 사용 시*/
+        String[] excelHeadArray = {"이름","바람", "온도", "습도"};
+        /* 동적 헤더 사용 시 */
+        List<String> excelHeadList = new ArrayList<>();
 
         try (InputStream inputStream = file.getInputStream()) {
             Workbook workbook = WorkbookFactory.create(inputStream); // Workbook 객체 생성
-            Sheet sheet = workbook.getSheetAt(0); // 첫번째 시트 얻기
+            Sheet sheet = workbook.getSheetAt(sheetNum); // 첫번째 시트 얻기
 
             List<Map<String, String>> dataList = new ArrayList<>(); // 각 행 아래 데이터를 저장할 리스트 생성
 
             /* 헤더 정보 가져오기 */
             Row headerRow = sheet.getRow(0); // 첫 번째 행의 Row
             if(headerRow != null){
-                for(Cell cell : headerRow){
-                    System.out.print(cell);
-                    /*.getStringCellValue() + "\t"*/
+                for(Cell cell : headerRow){  
+                    excelHeadList.add(String.valueOf(cell));
                 }
             }
 
             /* 연구메타의 엑셀형 장비 속성과 액셀 Header 비교 하는 로직 */
+            /*boolean headerCheck = rdaMeta(excelHeadList);
+            if(!headerCheck){
+                alert = "엑셀형 장비항목에 맞는 양식이 아닙니다.";
+            }*/
 
             /* 유무 확인 후 데이터 추출 */
 
@@ -59,15 +73,15 @@ public class ExcelController {
                 Map<String, String> rowData = new LinkedHashMap<>(); // 현재 행의 데이터를 저장할 맵 생성
 
                 // 각 셀을 반복하며 데이터 추출
-                for (int cellIndex = 0; cellIndex < excelHead.length; cellIndex++) {
+                for (int cellIndex = 0; cellIndex < excelHeadList.size(); cellIndex++) {
                     Cell cell = row.getCell(cellIndex, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK); // 빈 셀인 경우도 고려
                     if (cell == null || cell.getCellType() == CellType.BLANK) {
                         continue; // 빈 셀인 경우 스킵
                     }
-                    String columnName = excelHead[cellIndex]; // 열 이름 추출
+                    String columnName = excelHeadList.get(cellIndex); // 열 이름 추출
 
                     /*String cellValue = cell.toString(); // 셀 값 추출*/
-                    String cellValue = excelCellValidation(columnName, cell);
+                    String cellValue = excelCellValidation(columnName, cell, rowIndex);
 
                     rowData.put(columnName, cellValue.trim()); // 맵에 데이터 추가
                 }
@@ -89,7 +103,7 @@ public class ExcelController {
         return "readExcel";
     }
 
-    public String excelCellValidation(String columnName, Cell cell){
+    public String excelCellValidation(String columnName, Cell cell, int rowIndex){
         DecimalFormat decimalFormat = new DecimalFormat("#.##"); // 소수점 둘째자리까지만 표시하도록 포맷 설정
         String cellValue;
         switch (cell.getCellType()) {
@@ -102,9 +116,9 @@ public class ExcelController {
                 break;
             case NUMERIC:
                 cellValue = decimalFormat.format(cell.getNumericCellValue()); // 숫자인 경우 포맷 적용
-                if (columnName.equals("온도") && cell.getCellType() == NUMERIC && cell.getNumericCellValue() > 30) {
+                if (columnName.equals("tmp") && cell.getCellType() == NUMERIC && cell.getNumericCellValue() > 30) {
                     // "온도" 열이고, 셀 타입이 숫자이며, 30을 초과하는 경우
-                    System.out.println("온도 값이 30을 초과합니다.");
+                    System.out.println(rowIndex + "번째 행의 온도 값이 30을 초과합니다.");
                     // 필요한 로직 구현
                 }
                 break;
@@ -120,6 +134,23 @@ public class ExcelController {
 
         return cellValue;
     }
+
+    public boolean rdaMeta (List<String> excelHeader) {
+
+        if(!excelHeader.isEmpty()){
+            /* 엑셀 헤더와 연구메타의 장비 항목을 비교 */
+
+
+
+
+        }
+
+        return true;
+    }
+
+
+
+
 
 }
 

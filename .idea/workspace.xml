@@ -9,14 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1e6a151-c9fd-4e66-8c5e-3a6f6ee76bf1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/main/controller/ExcelCommon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/main/controller/ExcelSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="d1e6a151-c9fd-4e66-8c5e-3a6f6ee76bf1" name="Changes" comment="날짜 : 2023-07-19-PM-17:46&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 엑셀 헤드 동적 변경">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/controller/ExcelCommon.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/controller/ExcelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/controller/ExcelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/controller/ExcelSettings.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,25 +46,25 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/project_SVN_or_GIT/excel_upload",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.4597701",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "bf57c906fa7d2bb66d07372e41585d96",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/project_SVN_or_GIT/2022_syfSource_dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4597701&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;bf57c906fa7d2bb66d07372e41585d96&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.main.controller.config" />
@@ -182,8 +179,23 @@
       <workItem from="1683677759141" duration="10276000" />
       <workItem from="1689731548239" duration="835000" />
       <workItem from="1689732393827" duration="9563000" />
-      <workItem from="1689753920198" duration="2073000" />
+      <workItem from="1689753920198" duration="3010000" />
+      <workItem from="1689759409067" duration="141000" />
+      <workItem from="1689813244080" duration="1313000" />
+      <workItem from="1689815051564" duration="1244000" />
+      <workItem from="1689840927975" duration="921000" />
+      <workItem from="1689843306443" duration="2652000" />
+      <workItem from="1689897558546" duration="5634000" />
     </task>
+    <task id="LOCAL-00001" summary="날짜 : 2023-07-19-PM-17:46&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 엑셀 헤드 동적 변경">
+      <option name="closed" value="true" />
+      <created>1689756420433</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1689756420433</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +211,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="날짜 : 2023-07-19-PM-17:46&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 엑셀 헤드 동적 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="날짜 : 2023-07-19-PM-17:46&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 엑셀 헤드 동적 변경" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
