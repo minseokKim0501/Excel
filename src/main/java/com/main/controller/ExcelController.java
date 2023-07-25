@@ -1,15 +1,9 @@
 package com.main.controller;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +15,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static org.apache.poi.ss.usermodel.CellType.*;
+import static org.apache.poi.ss.usermodel.CellType.BLANK;
+import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
 
 @Controller
 public class ExcelController {
@@ -37,6 +32,10 @@ public class ExcelController {
         return "index";
     }
 
+
+    /*
+    * 파일 저장
+    **/
     @PostMapping("/storeExcel")
     public String storeExcel(@RequestParam("file") MultipartFile file) throws IOException {
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -52,61 +51,9 @@ public class ExcelController {
         return "storeExcel";
     }
 
-    @ResponseBody
-    @PostMapping(value="/parseExcel", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public  Map<String, String> ExcelParser(@RequestBody Map<String, String> test1){
-        List<Map<String, String>> resultMap = new ArrayList<>();
-
-        Map<String, String> resultJson = new HashMap<>();
-        try {
-            File excelFile = new File("D://study/excelDown");
-            if(excelFile.isFile()){
-                String fileName = excelFile.getName();
-                /* 파일 속성 체크 */
-                if(!(fileName.endsWith(".xls") || fileName.endsWith(".xlsx"))){
-                    System.out.println("엑셀 파일 아님");
-                }
-
-                /* 엑셀 파일 내용 검증 */
-                FileInputStream inputStream = new FileInputStream(filePath+"excelDown.xlsx");
-                Workbook workbook = WorkbookFactory.create(inputStream); // Workbook 객체 생성
-                Sheet sheet = workbook.getSheetAt(0); // 첫번째 시트 얻기
-
-                List<Map<String, String>> dataList = new ArrayList<>(); // 각 행 아래 데이터를 저장할 리스트 생성
-                System.out.println("dataList :" + sheet);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return test1;
-    }
-
-
-    @ResponseBody
-    @GetMapping("/ApiTest")
-    public ResponseEntity<BasicResponse> test(){
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /*
+    *  업로드된 파일 읽기
+    * */
     @RequestMapping("/readExcel")
     public String readExcel(@RequestParam("file") MultipartFile file, Model model) throws FileNotFoundException {
         /* 고정 헤더 사용 시*/
@@ -114,14 +61,9 @@ public class ExcelController {
         /* 동적 헤더 사용 시 */
         List<String> excelHeadList = new ArrayList<>();
 
-        File pathFile = new File(filePath);
-
         try (InputStream inputStream = file.getInputStream()) {
             Workbook workbook = WorkbookFactory.create(inputStream); // Workbook 객체 생성
             Sheet sheet = workbook.getSheetAt(sheetNum); // 첫번째 시트 얻기
-
-            /* 파일 저장 */
-            file.transferTo(pathFile);
 
             List<Map<String, String>> dataList = new ArrayList<>(); // 각 행 아래 데이터를 저장할 리스트 생성
 
@@ -180,6 +122,14 @@ public class ExcelController {
         return "readExcel";
     }
 
+
+
+    ////// REST API
+
+
+    /*
+    * 검증 1(데이터 형식, 값)
+    * */
     public String excelCellValidation(String columnName, Cell cell, int rowIndex){
         DecimalFormat decimalFormat = new DecimalFormat("#.##"); // 소수점 둘째자리까지만 표시하도록 포맷 설정
         String cellValue;
@@ -212,21 +162,101 @@ public class ExcelController {
         return cellValue;
     }
 
+    /*
+    * 검증 2(스키마)
+    * */
     public boolean rdaMeta (List<String> excelHeader) {
-
         if(!excelHeader.isEmpty()){
             /* 엑셀 헤더와 연구메타의 장비 항목을 비교 */
 
-
-
-
         }
-
         return true;
     }
 
+    /*
+    * 검증 3(파일 체크)
+    * */
+    public boolean chkFile (List<String> excelHeader) {
+        if(!excelHeader.isEmpty()){
+            /* 엑셀 헤더와 연구메타의 장비 항목을 비교 */
+
+        }
+        return true;
+    }
+
+    /*
+     *  경로 내 파일 읽기
+     * */
+    @ResponseBody
+    @PostMapping(value = "/parseExcel")
+    public Map<String, String> excelDataValidation(@RequestBody String filePath) throws FileNotFoundException {
+        File excelFile = new File("D://study/excelDown");
+        String fileName = excelFile.getName();
+        if(excelFile.isFile()){
+            //* 파일 속성 체크 *//
+            if(!(fileName.endsWith(".xls") || fileName.endsWith(".xlsx"))){
+                System.out.println("엑셀 파일 아님");
+            }
+        }
+
+        try {
+            FileInputStream file = new FileInputStream("D:/tmp/upload/right_excel/test.xlsx");
+
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+            int rowindex=0;
+            int columnindex=0;
+            //시트 수 (첫번째에만 존재하므로 0을 준다)
+            //만약 각 시트를 읽기위해서는 FOR문을 한번더 돌려준다
+            Sheet sheet = workbook.getSheetAt(sheetNum); // 첫번째 시트 얻기
 
 
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+/*        Sheet sheet = workbook.getSheetAt(sheetNum); // 첫번째 시트 얻기*/
+
+            List<Map<String, String>> dataList = new ArrayList<>(); // 각 행 아래 데이터를 저장할 리스트 생성
+
+            // 헤더아래 각 행을 반복하며 데이터 추출
+            /*for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) { // 첫 번째 행은 열 제목이므로 rowIndex를 1부터 시작
+                Row row = sheet.getRow(rowIndex);
+                if (row == null) {
+                    continue; // 빈 행인 경우 스킵
+                }
+                Map<String, String> rowData = new LinkedHashMap<>(); // 현재 행의 데이터를 저장할 맵 생성
+
+                // 각 셀을 반복하며 데이터 추출
+                for (int cellIndex = 0; cellIndex < excelHeadList.size(); cellIndex++) {
+                    Cell cell = row.getCell(cellIndex, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK); // 빈 셀인 경우도 고려
+                    if (cell == null || cell.getCellType() == BLANK) {
+                        continue; // 빈 셀인 경우 스킵
+                    }
+                    String columnName = excelHeadList.get(cellIndex); // 열 이름 추출
+
+                    *//*String cellValue = cell.toString(); // 셀 값 추출*//*
+                    String cellValue = excelCellValidation(columnName, cell, rowIndex);
+
+                    rowData.put(columnName, cellValue.trim()); // 맵에 데이터 추가
+                }
+                if (!rowData.isEmpty()) {
+                    dataList.add(rowData); // 리스트에 맵 추가
+                }
+            }
+            System.out.println(dataList); // 데이터 출력
+            model.addAttribute("dataList" , dataList);
+            workbook.close();*/
+
+
+        List<Map<String, String>> resultMap = new ArrayList<>();
+        Map<String, String> resultJson = new HashMap<>();
+        resultJson.put("1","온도 오류입니다.");
+        return resultJson;
+    }
 
 
 }

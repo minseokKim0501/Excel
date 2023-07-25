@@ -9,13 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1e6a151-c9fd-4e66-8c5e-3a6f6ee76bf1" name="Changes" comment="날짜 : 2023-07-21-PM-14:01&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 수정">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/main/controller/BasicResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/main/controller/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/main/controller/TestVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/storeExcel.jsp" afterDir="false" />
+    <list default="true" id="d1e6a151-c9fd-4e66-8c5e-3a6f6ee76bf1" name="Changes" comment="날짜 : 2023-07-21-PM-18:15&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 수정">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/controller/ExcelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/controller/ExcelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/controller/TestVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/controller/TestVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +62,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.4597701",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "MTConfigurable",
     "spring.configuration.checksum": "bf57c906fa7d2bb66d07372e41585d96",
     "vue.rearranger.settings.migration": "true"
   }
@@ -189,7 +188,9 @@
       <workItem from="1689815051564" duration="1244000" />
       <workItem from="1689840927975" duration="921000" />
       <workItem from="1689843306443" duration="2652000" />
-      <workItem from="1689897558546" duration="19639000" />
+      <workItem from="1689897558546" duration="19663000" />
+      <workItem from="1690156762081" duration="8197000" />
+      <workItem from="1690258664110" duration="7105000" />
     </task>
     <task id="LOCAL-00001" summary="날짜 : 2023-07-19-PM-17:46&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 엑셀 헤드 동적 변경">
       <option name="closed" value="true" />
@@ -207,11 +208,30 @@
       <option name="project" value="LOCAL" />
       <updated>1689915671210</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="날짜 : 2023-07-21-PM-18:15&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 수정">
+      <option name="closed" value="true" />
+      <created>1689930949399</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1689930949399</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -227,7 +247,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="날짜 : 2023-07-19-PM-17:46&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 엑셀 헤드 동적 변경" />
     <MESSAGE value="날짜 : 2023-07-21-PM-14:01&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="날짜 : 2023-07-21-PM-14:01&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 수정" />
+    <MESSAGE value="날짜 : 2023-07-21-PM-18:15&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="날짜 : 2023-07-21-PM-18:15&#10;이름 : 김민석&#10;내용 : 엑셀 업로드 수정" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

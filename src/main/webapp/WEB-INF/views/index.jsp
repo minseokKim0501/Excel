@@ -44,12 +44,19 @@
     </style>
 </head>
 <body>
-<h1>액셀 파일 업로드</h1>
+<h1>액셀 파일 저장</h1>
 <form action="/storeExcel" method="post" enctype="multipart/form-data">
     <input type="file" name="file" accept=".xls,.xlsx">
     <br><br>
     <input type="submit" value="파일 업로드">
 </form>
-<button type="button">검증</button>
+
+
+<h1>액셀 파일 읽기</h1>
+<form action="/readExcel" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".xls,.xlsx">
+    <br><br>
+    <input type="submit" value="파일 업로드">
+</form>
 </body>
 </html>
